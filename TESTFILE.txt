@@ -1,0 +1,5 @@
+Anton Ptushkin M 30 1000 Traveler 2
+Nastya Ivleeva F 31 2000 TV 3
+Olesya Kudryavtseva F 32 3000 Traveler 5
+Alexander Morozov M 55 5000 TV 10
+Vladimir Solovyev M 56 10000 shit_guy 20
