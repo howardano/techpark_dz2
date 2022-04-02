@@ -2,6 +2,7 @@
 #include "structures.h"
 #include <malloc.h>
 #include <stdlib.h>
+#define  _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -12,9 +13,8 @@
 #define EXPERIENCE_BONUS 2000
 
 //need to change it, when time comes
-#define NUM_OF_WORKERS 5
+#define NUM_OF_WORKERS 10000
 
-int process_request(int argc, char * argv[]);
 worker ** get_data(FILE * fp);
 void *safe_malloc(size_t size);
 void push_back(avg_income_for_position * head, worker * employee);
