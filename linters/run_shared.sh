@@ -24,7 +24,7 @@ function check_log() {
 print_header "RUN cppcheck"
 check_log "cppcheck shared_lib --enable=all --inconclusive --error-exitcode=1 -I shared_lib --suppress=missingIncludeSystem --suppress=variableScope --suppress=shadowVariable --suppress=redundantAssignment --suppress=unusedFunction" "\(information\)"
 
-#print_header "RUN clang-tidy"
-#check_log "clang-tidy shared_lib/*.c shared_lib/*.h -extra-arg=-std=c99 -- -Ishared_lib" "Error (?:reading|while processing)"
+print_header "RUN clang-tidy"
+check_log "clang-tidy shared_lib/*.c shared_lib/*.h -extra-arg=-std=c99 -- -Ishared_lib" "Error (?:reading|while processing)"
 
 print_header "SUCCESS"
