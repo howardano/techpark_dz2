@@ -1,0 +1,22 @@
+on:
+  push:
+    branches: [ iz2 ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make packages && make analysis_static && make analysis_shared
+  test_static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make packages && make build_static && make test_static
+  test_shared:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make packages && make build_shared && make test_shared

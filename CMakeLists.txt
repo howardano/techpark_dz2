@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 3.0.0)
+project(iz2)
+
+option(STATIC "turn on static" OFF)
+option(SHARED "turn on shared" OFF)
+option(STATIC_TESTS "turn on static tests" OFF)
+option(SHARED_TESTS "turn on shared tests" OFF)
+
+add_executable(${PROJECT_NAME} main.c)
+target_link_libraries(${PROJECT_NAME} PRIVATE m)
+
+if(STATIC)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -coverage -lgcov")
+    set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fprofile-arcs -ftest-coverage -fPIC -O0")
+    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fprofile-arcs -ftest-coverage -fPIC -O0")
+    add_subdirectory(static_lib)
+    target_include_directories(${PROJECT_NAME} PUBLIC ${STATIC_LIB_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${STATIC_LIB_LIBRARIES})
+endif()
+if(SHARED)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -coverage -lgcov")
+    set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fprofile-arcs -ftest-coverage -fPIC")
+    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fprofile-arcs -ftest-coverage -fPIC")
+    add_subdirectory(shared_lib)
+    target_include_directories(${PROJECT_NAME} PUBLIC ${SHARED_LIB_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${SHARED_LIB_LIBRARIES})
+endif()
+
+if(STATIC_TESTS)
+    add_subdirectory(tests_static)
+endif()
+
+if(SHARED_TESTS)
+    add_subdirectory(tests_shared)
+endif()
+
